@@ -41,10 +41,22 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
-(setq lsp-nix-nixd-server-path "nixd"
-      lsp-nix-nixd-formatting-command [ "alejandra" ]
-)
 
+
+(use-package nix-mode
+        :after lsp-mode
+        (nix-mode . lsp-deferred) ;; So that envrc mode will work
+        :custom
+        (lsp-disabled-clients '((nix-mode . nix-nil))) ;; Disable nil so that nixd will be used as lsp-server
+
+        :config
+        (setq lsp-nix-nixd-server-path "nixd"
+        lsp-nix-nixd-formatting-command [ "nixpkgs-alejandra" ]
+        lsp-nix-nixd-nixpkgs-expr "import (builtins.getFlake \"/etc/nixos/\").inputs.nixpkgs { }"
+        lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/etc/nixos\")homeConfigurations.${config.my.username}.options"
+        )
+
+)
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
