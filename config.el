@@ -60,7 +60,7 @@
   (setq lsp-nix-nixd-server-path "nixd"
     lsp-nix-nixd-formatting-command [ "nixpkgs-alejandra" ]
     lsp-nix-nixd-nixpkgs-expr "import (builtins.getFlake \"/etc/nixos/\").inputs.nixpkgs { }"
-    lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/etc/nixos\")homeConfigurations.${config.my.username}.options"
+    lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/etc/nixos\").homeConfigurations.unwary.options"
   )
 
 )
