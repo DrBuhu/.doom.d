@@ -44,10 +44,6 @@
 
 
 (use-package nix-mode
-        :after lsp-mode
-        (nix-mode . lsp-deferred) ;; So that envrc mode will work
-        :custom
-        (lsp-disabled-clients '((nix-mode . nix-nil))) ;; Disable nil so that nixd will be used as lsp-server
 
         :config
         (setq lsp-nix-nixd-server-path "nixd"
